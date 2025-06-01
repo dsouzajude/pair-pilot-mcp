@@ -9,14 +9,10 @@ AI agents often need human input for clarifications, confirmations, or choices d
 
 ## What It Does
 
-- **Standalone Service**: Runs independently from AI agents, accessible via [HTTP/SSE](https://modelcontextprotocol.io/docs/concepts/transports#server-sent-events-sse)
-- **Enhanced CLI**: Uses `rich` for beautiful terminal output and `questionary` for smooth interactions
-- **Three Question Types**: Free-form text, yes/no confirmations, and multiple-choice selections
-- **Docker Ready**: Containerized for easy deployment in any environment
-
-Here’s a concise new section you can add to your `README.md` that explains the flow between the human user, the MCP server, and the AI agent, along with a **Mermaid flow diagram**:
-
----
+- **Standalone Service**: Runs independently from AI agents, accessible via [HTTP/SSE](https://modelcontextprotocol.io/docs/concepts/transports#server-sent-events-sse).
+- **Enhanced CLI**: Uses `rich` for beautiful terminal output and `questionary` for smooth interactions.
+- **Three Question Types**: Free-form text, yes/no confirmations, and multiple-choice selections.
+- **Docker Ready**: Containerized for easy deployment in any environment.
 
 ## System Flow: Human ↔ MCP ↔ AI Agent
 
@@ -66,6 +62,8 @@ pair-pilot-mcp/
 
 ### Using Docker (Recommended)
 
+> For reference, see [docker-compose.yaml](.devcontainer/docker-compose.yaml) for reference on how it's currently setup to run the server alonside a devcontainer. 
+
 ```bash
 # Build the image
 docker build -t pair-pilot .
@@ -92,7 +90,7 @@ pip install -r requirements.txt
 python src/main.py
 ```
 
-The server will start on `http://localhost:819=00/sse`
+The server will start on `http://localhost:8100/sse`.
 
 ## AI Agent Integration
 
@@ -156,8 +154,3 @@ pytest -v
 # Run specific test file
 pytest tests/test_cli_handler.py
 ```
-
-The tests cover:
-- CLI handler functions with mocked questionary interactions
-- MCP tool functions end-to-end with mocked CLI calls
-- Error handling for edge cases (cancelled inputs, empty options)

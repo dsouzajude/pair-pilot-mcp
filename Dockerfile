@@ -21,4 +21,4 @@ COPY ./src /server/src
 EXPOSE 8100
 
 # Define the command to run your application
-CMD ["python", "src/main.py"]
+CMD ["python", "-m", "src.main"]

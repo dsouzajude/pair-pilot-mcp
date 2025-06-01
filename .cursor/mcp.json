@@ -5,7 +5,7 @@
       "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
     },
     "pair-pilot": {
-      "url": "http://localhost:8100/sse",
+      "url": "http://pair-pilot-mcp:8100/sse",
       "description": "Pair Pilot - Your co-pilot for coding, questions, and continuous feedback."
     }
   }
