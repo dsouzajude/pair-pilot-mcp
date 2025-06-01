@@ -29,7 +29,8 @@
 				"ms-python.vscode-pylance",
 				"charliermarsh.ruff",
 				"searking.preview-vscode",
-				"vstirbu.vscode-mermaid-preview"
+				"vstirbu.vscode-mermaid-preview",
+				"github.vscode-github-actions"
 			],
 			"settings": {
 				"[python]": {
@@ -49,5 +50,5 @@
 	"forwardPorts": [
 		8100
 	],
-	"postCreateCommand": "pip3 install -r requirements.txt",
+	"postCreateCommand": "python -m pip install --upgrade pip && pip install -r requirements.txt"
 }
