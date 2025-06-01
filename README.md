@@ -60,18 +60,30 @@ pair-pilot-mcp/
 
 ## Running the Server
 
+### Prerequisite
+
+Clone the repository:
+
+```bash
+git clone https://github.com/dsouzajude/pair-pilot-mcp.git
+```
+
 ### Using Docker (Recommended)
 
 > See [docker-compose.yaml](.devcontainer/docker-compose.yaml) for reference. 
 
 ```bash
+# Change directory to pair-pilot-mcp
+cd pair-pilot-mcp
+
 # Build the image
 docker build -t pair-pilot .
 
 # Run the container
 docker run -it -p 8100:8100 --rm --name pair-pilot  pair-pilot
 
-# Or in docker compose
+# Or alternatively in docker compose
+cd .devcontainer
 docker compose up --build --remove-orphans pair-pilot
 
 # Then attach to the docker container to connect to the Terminal session
