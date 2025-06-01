@@ -42,7 +42,14 @@ pair-pilot-mcp/
 docker build -t pair-pilot .
 
 # Run the container
-docker run -it -p 8100:8100 --rm pair-pilot
+docker run -it -p 8100:8100 --rm --name pair-pilot  pair-pilot
+
+# Or in docker compose
+docker compose up --build --remove-orphans
+
+# Then attach to the docker container to connect to the Terminal session
+# for interactive pair piloting.
+docker attach pair-pilot
 ```
 
 ### Local Development
@@ -51,13 +58,16 @@ docker run -it -p 8100:8100 --rm pair-pilot
 # Install dependencies
 pip install -r requirements.txt
 
-# Run the server
+# Run the server - which will also hook you on to the Terminal session
+# for interactive pair piloting.
 python src/main.py
 ```
 
 The server will start on `http://localhost:819=00/sse`
 
 ## AI Agent Integration
+
+> Note: Before using the MCP, ensure that it is run locally following the above commands. It is intended to act as a standalone server for the Agent to connect to it. If it is not running already, the Agent will fail to connect to the MCP and it won't work.
 
 Add this configuration to your AI agent's MCP settings:
 
