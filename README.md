@@ -109,3 +109,26 @@ After receiving a response, continue the task accordingly and recheck with the u
 - **`request_free_form_input(question: str)`** - Ask for text input
 - **`request_yes_no_input(question: str)`** - Ask for yes/no confirmation
 - **`request_multiple_choice_input(question: str, options: list)`** - Present choices
+
+## Testing
+
+Run the unit tests with pytest:
+
+```bash
+# Install test dependencies
+pip install -r requirements.txt
+
+# Run all tests
+pytest
+
+# Run with verbose output
+pytest -v
+
+# Run specific test file
+pytest tests/test_cli_handler.py
+```
+
+The tests cover:
+- CLI handler functions with mocked questionary interactions
+- MCP tool functions end-to-end with mocked CLI calls
+- Error handling for edge cases (cancelled inputs, empty options)
