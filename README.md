@@ -62,7 +62,7 @@ pair-pilot-mcp/
 
 ### Using Docker (Recommended)
 
-> For reference, see [docker-compose.yaml](.devcontainer/docker-compose.yaml) for reference on how it's currently setup to run the server alonside a devcontainer. 
+> See [docker-compose.yaml](.devcontainer/docker-compose.yaml) for reference. 
 
 ```bash
 # Build the image
@@ -72,7 +72,7 @@ docker build -t pair-pilot .
 docker run -it -p 8100:8100 --rm --name pair-pilot  pair-pilot
 
 # Or in docker compose
-docker compose up --build --remove-orphans
+docker compose up --build --remove-orphans pair-pilot
 
 # Then attach to the docker container to connect to the Terminal session
 # for interactive pair piloting.
