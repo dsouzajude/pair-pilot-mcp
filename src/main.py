@@ -13,7 +13,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.text import Text
 
-from cli_handler import ask_free_form, ask_multiple_choice, ask_yes_no
+from .cli_handler import ask_free_form, ask_multiple_choice, ask_yes_no
 
 # Initialize Rich Console for enhanced output
 console = Console()
