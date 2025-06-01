@@ -122,7 +122,7 @@ if __name__ == "__main__":
     host = os.environ.get(
         "HOST", "0.0.0.0"
     )  # Listen on all interfaces, crucial for Docker
-    port = os.environ.get("PORT", 8080)  # Default port, can be configured
+    port = os.environ.get("PORT", 8100)  # Default port, can be configured
 
     console.print(
         f"🚀 Starting Interactive MCP Server ([bold cyan]{mcp.name}[/bold cyan])...",

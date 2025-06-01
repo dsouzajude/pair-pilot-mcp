@@ -17,8 +17,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the application code (the 'src' directory) into the container at /server/src
 COPY ./src /server/src
 
-# Make port 8080 available to the world outside this container
-EXPOSE 8080
+# Make port 8100 available to the world outside this container
+EXPOSE 8100
 
 # Define the command to run your application
 CMD ["python", "src/main.py"]
