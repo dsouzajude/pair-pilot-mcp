@@ -24,7 +24,8 @@
 				"ms-python.debugpy",
 				"ms-python.vscode-pylance",
 				"charliermarsh.ruff",
-				"searking.preview-vscode"
+				"searking.preview-vscode",
+				"vstirbu.vscode-mermaid-preview"
 			],
 			"settings": {
 				"[python]": {
