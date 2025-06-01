@@ -14,6 +14,35 @@ AI agents often need human input for clarifications, confirmations, or choices d
 - **Three Question Types**: Free-form text, yes/no confirmations, and multiple-choice selections
 - **Docker Ready**: Containerized for easy deployment in any environment
 
+Here’s a concise new section you can add to your `README.md` that explains the flow between the human user, the MCP server, and the AI agent, along with a **Mermaid flow diagram**:
+
+---
+
+## System Flow: Human ↔ MCP ↔ AI Agent
+
+PairPilot acts as a bridge between a human developer and an AI agent, allowing real-time feedback through a dedicated CLI interface. This ensures clear, low-latency communication without cluttering the main chat.
+
+### How It Works
+
+1. The AI agent encounters ambiguity or needs confirmation.
+2. It sends a question to the MCP server using a registered tool.
+3. The MCP prompts the human user in the terminal.
+4. The user responds, and the answer is sent back to the agent.
+5. The agent continues the task using that input.
+
+```mermaid
+flowchart TD
+    User[Human User]
+    MCP[PairPilot MCP Server]
+    Agent[AI Agent]
+
+    Agent -->|Sends question| MCP
+    MCP -->|Prompts in terminal| User
+    User -->|Submits response| MCP
+    MCP -->|Returns answer| Agent
+    Agent -->|Continues task| Agent
+```
+
 ## Project Structure
 
 ```
