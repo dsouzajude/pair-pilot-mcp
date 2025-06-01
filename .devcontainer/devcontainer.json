@@ -2,7 +2,11 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
 	"name": "Python3",
-	"image": "mcr.microsoft.com/devcontainers/python:1-3.12-bullseye",
+	"dockerComposeFile": [
+		"docker-compose.yaml"
+	],
+	"service": "devcontainer",
+	"workspaceFolder": "/workspace",
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:2": {
 			"installZsh": true,
@@ -45,5 +49,5 @@
 	"forwardPorts": [
 		8100
 	],
-	"postCreateCommand": "pip3 install -r requirements.txt"
+	"postCreateCommand": "pip3 install -r requirements.txt",
 }
