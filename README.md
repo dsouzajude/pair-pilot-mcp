@@ -39,6 +39,10 @@ flowchart TD
     Agent -->|Continues task| Agent
 ```
 
+### Demo
+
+![](docs/pair-pilot-demo.gif)
+
 ## Project Structure
 
 ```
