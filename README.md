@@ -129,19 +129,8 @@ Most MCP-compatible agents use similar configuration. Adjust the format as neede
 
 ### Prompt Enineering
 
-You can add the following instructions for the AI agent to invoke the tools:
+You can add the instructions in [prompts/clarify-before-coding.md](prompts/clarify-before-coding.md) for the AI agent to invoke the tools.
 
-```markup
-# Guide to Clarifying Before You Code
-Whenever you encounter ambiguity, need a decision, or could benefit from the user's guidance before continuing, pause and use the `pair-pilot` MCP server to ask for clarification. Always use one of the following tools:
-
-- `request_free_form_input(question: str)` — for open-ended questions or feedback.
-- `request_yes_no_input(question: str)` — for simple confirmations.
-- `request_multiple_choice_input(question: str, options: list)` — when offering a defined set of paths.
-
-After receiving a response, continue the task accordingly and recheck with the user before finalizing if needed.
-
-```
 
 ## Available Tools
 
