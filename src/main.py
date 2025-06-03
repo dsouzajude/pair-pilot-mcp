@@ -79,9 +79,9 @@ async def request_yes_no_input_tool(question: str) -> bool:
 
 @mcp.tool(
     name="request_multiple_choice_input",
-    description="Presents the user with a list of options and returns their selected choice as a string.",
+    description="Presents the user with a list of options and returns their selected choices as a list of strings.",
 )
-async def request_multiple_choice_input_tool(question: str, options: List[str]) -> str:
+async def request_multiple_choice_input_tool(question: str, options: List[str]) -> List[str]:
     """
     Tool for requesting multiple choice selection from the user.
 
@@ -90,7 +90,7 @@ async def request_multiple_choice_input_tool(question: str, options: List[str]) 
         options: List of choices to present
 
     Returns:
-        The selected choice as a string
+        The selected choices as a list of strings, or empty list if cancelled or no options.
     """
     if not options:
         error_message = (

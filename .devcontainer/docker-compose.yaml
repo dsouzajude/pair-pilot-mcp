@@ -1,6 +1,6 @@
 services:
   devcontainer:
-    container_name: devcontainer
+    container_name: devcontainer-pair-pilot-mcp
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,11 +9,9 @@ services:
       - ..:/workspace:cached
       - ~/.gitconfig:/home/vscode/.gitconfig:ro
     command: sleep infinity
-    networks:
-      - dev-network
-    depends_on:
-      - pair-pilot-mcp
-
+    extra_hosts: 
+      - "host.docker.internal:host-gateway"
+      
   pair-pilot-mcp:
     container_name: pair-pilot
     build:
@@ -22,15 +20,9 @@ services:
     platform: linux/amd64
     ports:
       - "8100:8100"
-    networks:
-      - dev-network
     stdin_open: true
     tty: true
     environment:
       - PYTHONUNBUFFERED=1
       - HOST=0.0.0.0
       - PORT=8100
-
-networks:
-  dev-network:
-    driver: bridge
