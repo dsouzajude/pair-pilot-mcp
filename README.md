@@ -3,6 +3,12 @@
 
 PairPilot is standalone Model Context Protocol (MCP) server that enables AI agents to request human feedback through an enhanced command-line interface, without interrupting the main conversation flow.
 
+[![MCP Server](https://img.shields.io/badge/MCP-Server-D2C3A5?style=flat-square)](https://modelcontextprotocol.io)
+[![python](https://img.shields.io/badge/Python-3.10_%7C_3.11_%7C_3.12-blue?logo=python&logoColor=white&style=flat-square)](https://github.com/tshu-w/mcp-copilot)
+![CI](https://github.com/dsouzajude/pair-pilot-mcp/actions/workflows/ci.yaml/badge.svg)
+![PublishImage](https://github.com/dsouzajude/pair-pilot-mcp/actions/workflows/publish-image.yaml/badge.svg)
+
+
 ## Problem Statement
 
 AI agents often need human input for clarifications, confirmations, or choices during task execution. Using the main chat interface for every small question wastes tokens, breaks user flow, and clutters the conversation. This MCP server provides a dedicated "side channel" for efficient human-AI micro-interactions.
