@@ -1,6 +1,6 @@
 services:
   devcontainer:
-    container_name: devcontainer
+    container_name: devcontainer-pair-pilot-mcp
     build:
       context: .
       dockerfile: Dockerfile
