@@ -78,6 +78,13 @@ Clone the repository:
 >> git clone https://github.com/dsouzajude/pair-pilot-mcp.git
 ```
 
+### Environment Variables
+
+| Variable Name | Default Value |
+| ------------- | ------------- |
+| HOST          | `0.0.0.0`     |
+| PORT          | `8100`        | 
+
 ### Using Docker (Recommended)
 
 > See [docker-compose.yaml](.devcontainer/docker-compose.yaml) for reference. 
@@ -90,7 +97,11 @@ Clone the repository:
 >> docker build -t pair-pilot .
 
 # Run the container
->> docker run -it -p 8100:8100 --rm --name pair-pilot  pair-pilot
+>> docker run -it --rm -p 8100:8100 \
+                  -e HOST="0.0.0.0" \
+                  -e PORT="8100" \
+                  --name pair-pilot \
+                  pair-pilot
 
 # Or alternatively in docker compose
 >> cd .devcontainer
@@ -121,6 +132,7 @@ development. It will connect to the server and automatically call the three tool
 
 ```bash
 # Run the client
+# The `MCP_SERVER_URL` environment variable is required and defaults to `http://localhost:8100/sse`
 >> MCP_SERVER_URL=<MCP_SERVER_URL> python test_client.py
 
 Attempting to connect to MCP server at http://host.docker.internal:8100/sse...
