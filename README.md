@@ -97,8 +97,8 @@ cd .devcontainer
 docker compose up --build --remove-orphans pair-pilot
 
 # Then attach to the docker container to connect to the Terminal session
-# for interactive pair piloting.
-docker attach pair-pilot
+# for interactive pair piloting. You can detach by pressing Ctrl+C.
+docker attach --detach-keys="ctrl-c" pair-pilot
 ```
 
 ### Local Development
