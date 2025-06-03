@@ -165,3 +165,7 @@ pytest -v
 # Run specific test file
 pytest tests/test_cli_handler.py
 ```
+
+## Want to Contribute?
+
+See [CONTRIBUTING.md](CONTRIBUTING.md)
