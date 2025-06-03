@@ -49,6 +49,7 @@ class TestMcpTools:
         """Test yes/no input tool returning False."""
         mock_ask_yes_no.return_value = False
         
+        
         result = await request_yes_no_input_tool("Delete file?")
         
         assert result is False
@@ -60,11 +61,11 @@ class TestMcpTools:
     async def test_request_multiple_choice_input_tool_success(self, mock_ask_multiple_choice, mock_print):
         """Test multiple choice input tool with valid options."""
         options = ["Option 1", "Option 2", "Option 3"]
-        mock_ask_multiple_choice.return_value = "Option 2"
+        mock_ask_multiple_choice.return_value = ["Option 2"]
         
         result = await request_multiple_choice_input_tool("Choose approach:", options)
         
-        assert result == "Option 2"
+        assert result == ["Option 2"]
         mock_ask_multiple_choice.assert_called_once_with("Select an option:", options)
         mock_print.assert_called_once()
 
@@ -84,9 +85,9 @@ class TestMcpTools:
     async def test_request_multiple_choice_input_tool_single_option(self, mock_ask_multiple_choice, mock_print):
         """Test multiple choice input tool with single option."""
         options = ["Only Option"]
-        mock_ask_multiple_choice.return_value = "Only Option"
+        mock_ask_multiple_choice.return_value = ["Only Option"]
         
         result = await request_multiple_choice_input_tool("Choose:", options)
         
-        assert result == "Only Option"
+        assert result == ["Only Option"]
         mock_ask_multiple_choice.assert_called_once_with("Select an option:", options) 

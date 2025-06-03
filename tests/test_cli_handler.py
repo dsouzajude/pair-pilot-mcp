@@ -65,27 +65,27 @@ class TestCliHandler:
         assert result is False
 
     @pytest.mark.asyncio
-    @patch('src.cli_handler.questionary.select')
+    @patch('src.cli_handler.questionary.checkbox')
     async def test_ask_multiple_choice_success(self, mock_select):
         """Test successful multiple choice selection."""
         options = ["Option A", "Option B", "Option C"]
-        mock_select.return_value.ask_async = AsyncMock(return_value="Option B")
+        mock_select.return_value.ask_async = AsyncMock(return_value=["Option B"])
         
         result = await ask_multiple_choice("Choose:", options)
         
-        assert result == "Option B"
+        assert result == ["Option B"]
         mock_select.assert_called_once_with("Choose:", choices=options)
 
     @pytest.mark.asyncio
-    @patch('src.cli_handler.questionary.select')
+    @patch('src.cli_handler.questionary.checkbox')
     async def test_ask_multiple_choice_cancelled(self, mock_select):
         """Test multiple choice when user cancels."""
         options = ["Option A", "Option B"]
-        mock_select.return_value.ask_async = AsyncMock(return_value=None)
+        mock_select.return_value.ask_async = AsyncMock(return_value=[])
         
         result = await ask_multiple_choice("Choose:", options)
         
-        assert result == ""
+        assert result == []
 
     @pytest.mark.asyncio
     async def test_ask_multiple_choice_no_options(self):

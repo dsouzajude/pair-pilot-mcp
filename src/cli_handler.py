@@ -48,25 +48,25 @@ async def ask_yes_no(prompt_message: str) -> bool:
     return confirmation
 
 
-async def ask_multiple_choice(prompt_message: str, options: List[str]) -> str:
+async def ask_multiple_choice(prompt_message: str, options: List[str]) -> List[str]:
     """
-    Presents the user with multiple choices and returns the selected option as a string.
+    Presents the user with multiple choices and returns the selected options as a list of strings.
 
     Args:
         prompt_message: The question to display to the user
         options: List of choice options to present
 
     Returns:
-        The selected choice as a string, or empty string if cancelled or no options
+        The selected choices as a list of strings, or empty list if cancelled or no options
     """
     # Handle empty options list
     if not options:
         return "ERROR_NO_OPTIONS"
 
-    choice = await questionary.select(prompt_message, choices=options).ask_async()
+    choice = await questionary.checkbox(prompt_message, choices=options).ask_async()
 
     # If choice is None (user cancelled), return empty string
     if choice is None:
-        return ""
+        return []
 
     return choice
