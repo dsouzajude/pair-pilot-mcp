@@ -75,7 +75,7 @@ pair-pilot-mcp/
 Clone the repository:
 
 ```bash
-git clone https://github.com/dsouzajude/pair-pilot-mcp.git
+>> git clone https://github.com/dsouzajude/pair-pilot-mcp.git
 ```
 
 ### Using Docker (Recommended)
@@ -84,35 +84,63 @@ git clone https://github.com/dsouzajude/pair-pilot-mcp.git
 
 ```bash
 # Change directory to pair-pilot-mcp
-cd pair-pilot-mcp
+>> cd pair-pilot-mcp
 
 # Build the image
-docker build -t pair-pilot .
+>> docker build -t pair-pilot .
 
 # Run the container
-docker run -it -p 8100:8100 --rm --name pair-pilot  pair-pilot
+>> docker run -it -p 8100:8100 --rm --name pair-pilot  pair-pilot
 
 # Or alternatively in docker compose
-cd .devcontainer
-docker compose up --build --remove-orphans pair-pilot
+>> cd .devcontainer
+>> docker compose up --build --remove-orphans pair-pilot
 
 # Then attach to the docker container to connect to the Terminal session
 # for interactive pair piloting. You can detach by pressing Ctrl+C.
-docker attach --detach-keys="ctrl-c" pair-pilot
+>> docker attach --detach-keys="ctrl-c" pair-pilot
 ```
 
 ### Local Development
 
 ```bash
 # Install dependencies
-pip install -r requirements.txt
+>> pip install -r requirements.txt
 
 # Run the server - which will also hook you on to the Terminal session
 # for interactive pair piloting.
-python src/main.py
+>> python -m src.main
 ```
 
 The server will start on `http://localhost:8100/sse`.
+
+### Using the Test Client
+
+We have a test client in [test_client.py](test_client.py) to help with local
+development. It will connect to the server and automatically call the three tools sequentially with predefined inputs. You'll see the client's requests and the server responses printed in the client's terminal. The PairPilot server terminal will show the interactive prompts. Use the following command to run the client:
+
+```bash
+# Run the client
+>> MCP_SERVER_URL=<MCP_SERVER_URL> python test_client.py
+
+Attempting to connect to MCP server at http://host.docker.internal:8100/sse...
+Session initialized. Available tools from server:
+['request_free_form_input', 'request_yes_no_input', 'request_multiple_choice_input']
+
+--- Testing: request_free_form_input ---
+Client: Asking free-form question: 'What is your favorite programming language?'
+Server Response: [TextContent(type='text', text='Python', annotations=None)]
+
+--- Testing: request_yes_no_input ---
+Client: Asking yes/no question: 'Do you enjoy using MCP?'
+Server Response: [TextContent(type='text', text='true', annotations=None)]
+
+--- Testing: request_multiple_choice_input ---
+Client: Asking multiple-choice question: 'Which topic do you want to discuss?' with options: ['Technology', 'Science', 'Art']
+Server Response: [TextContent(type='text', text='Technology', annotations=None), TextContent(type='text', text='Science', annotations=None)]
+
+--- Test client finished ---
+```
 
 ## AI Agent Integration
 
@@ -154,16 +182,16 @@ Run the unit tests with pytest:
 
 ```bash
 # Install test dependencies
-pip install -r requirements.txt
+>> pip install -r requirements.txt
 
 # Run all tests
-pytest
+>> pytest
 
 # Run with verbose output
-pytest -v
+>> pytest -v
 
 # Run specific test file
-pytest tests/test_cli_handler.py
+>> pytest tests/test_cli_handler.py
 ```
 
 ## Want to Contribute?
