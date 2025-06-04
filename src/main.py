@@ -6,7 +6,7 @@ This server allows AI agents to interact with a human user via CLI for feedback.
 """
 
 import os
-from typing import List
+from typing import List, TypedDict
 
 from mcp.server.fastmcp import FastMCP
 from rich.console import Console
@@ -14,6 +14,17 @@ from rich.panel import Panel
 from rich.text import Text
 
 from .cli_handler import ask_free_form, ask_multiple_choice, ask_yes_no
+
+
+class YesNoAnswerReturnType(TypedDict):
+    answer: bool
+    comments: str
+
+
+class MultipleChoiceAnswerReturnType(TypedDict):
+    selection: List[str]
+    comments: str
+
 
 # Initialize Rich Console for enhanced output
 console = Console()
@@ -55,7 +66,7 @@ async def request_free_form_input_tool(question: str) -> str:
     name="request_yes_no_input",
     description="Asks the user a yes/no question and returns their answer along with any optional comments. The response is a dictionary: {'answer': bool, 'comments': str}.",
 )
-async def request_yes_no_input_tool(question: str) -> dict:
+async def request_yes_no_input_tool(question: str) -> YesNoAnswerReturnType:
     """
     Tool for requesting yes/no confirmation from the user, with optional comments.
 
@@ -85,7 +96,9 @@ async def request_yes_no_input_tool(question: str) -> dict:
     name="request_multiple_choice_input",
     description="Presents the user with a list of options, returns their selected choices and any optional comments. The response is a dictionary: {'selection': List[str], 'comments': str}.",
 )
-async def request_multiple_choice_input_tool(question: str, options: List[str]) -> dict:
+async def request_multiple_choice_input_tool(
+    question: str, options: List[str]
+) -> MultipleChoiceAnswerReturnType:
     """
     Tool for requesting multiple choice selection from the user, with optional comments.
 
