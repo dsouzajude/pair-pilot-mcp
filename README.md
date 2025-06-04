@@ -4,7 +4,7 @@
 PairPilot is standalone Model Context Protocol (MCP) server that enables AI agents to request human feedback through an enhanced command-line interface, without interrupting the main conversation flow.
 
 [![MCP Server](https://img.shields.io/badge/MCP-Server-D2C3A5?style=flat-square)](https://modelcontextprotocol.io)
-[![python](https://img.shields.io/badge/Python-3.10_%7C_3.11_%7C_3.12-blue?logo=python&logoColor=white&style=flat-square)](https://github.com/tshu-w/mcp-copilot)
+[![python](https://img.shields.io/badge/Python-3.10_%7C_3.11_%7C_3.12-blue?logo=python&logoColor=white&style=flat-square)](https://github.com/dsouzajude/pair-pilot-mcp)
 ![CI](https://github.com/dsouzajude/pair-pilot-mcp/actions/workflows/ci.yaml/badge.svg)
 ![PublishImage](https://github.com/dsouzajude/pair-pilot-mcp/actions/workflows/publish-image.yaml/badge.svg)
 
@@ -179,7 +179,9 @@ Most MCP-compatible agents use similar configuration. Adjust the format as neede
 
 ### Prompt Enineering
 
-You can add the instructions in [prompts/clarify-before-coding.md](prompts/clarify-before-coding.md) for the AI agent to invoke the tools.
+You can reuse the prompt in [prompts/clarify-before-coding.md](prompts/clarify-before-coding.md) for the AI agent to use in order to invoke the tools. Your prompt can look something like this:
+
+> *Throughout this session, make sure to follow all instructions in @clarify-before-coding.md to interact with me for continuous feedback and to get clarity by using the pair-pilot MCP*.
 
 
 ## Available Tools
