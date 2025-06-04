@@ -4,7 +4,7 @@
 PairPilot is standalone Model Context Protocol (MCP) server that enables AI agents to request human feedback through an enhanced command-line interface, without interrupting the main conversation flow.
 
 [![MCP Server](https://img.shields.io/badge/MCP-Server-D2C3A5?style=flat-square)](https://modelcontextprotocol.io)
-[![python](https://img.shields.io/badge/Python-3.10_%7C_3.11_%7C_3.12-blue?logo=python&logoColor=white&style=flat-square)](https://github.com/tshu-w/mcp-copilot)
+[![python](https://img.shields.io/badge/Python-3.10_%7C_3.11_%7C_3.12-blue?logo=python&logoColor=white&style=flat-square)](https://github.com/dsouzajude/pair-pilot-mcp)
 ![CI](https://github.com/dsouzajude/pair-pilot-mcp/actions/workflows/ci.yaml/badge.svg)
 ![PublishImage](https://github.com/dsouzajude/pair-pilot-mcp/actions/workflows/publish-image.yaml/badge.svg)
 
@@ -145,11 +145,11 @@ Server Response: [TextContent(type='text', text='Python', annotations=None)]
 
 --- Testing: request_yes_no_input ---
 Client: Asking yes/no question: 'Do you enjoy using MCP?'
-Server Response: [TextContent(type='text', text='true', annotations=None)]
+Server Response: [TextContent(type='text', text='{"answer": true, "comments": "MCP is great!"}', annotations=None)]
 
 --- Testing: request_multiple_choice_input ---
 Client: Asking multiple-choice question: 'Which topic do you want to discuss?' with options: ['Technology', 'Science', 'Art']
-Server Response: [TextContent(type='text', text='Technology', annotations=None), TextContent(type='text', text='Science', annotations=None)]
+Server Response: [TextContent(type='text', text='{"selection": ["Technology", "Science"], "comments": "Let's start with these two."}', annotations=None)]
 
 --- Test client finished ---
 ```
@@ -179,14 +179,23 @@ Most MCP-compatible agents use similar configuration. Adjust the format as neede
 
 ### Prompt Enineering
 
-You can add the instructions in [prompts/clarify-before-coding.md](prompts/clarify-before-coding.md) for the AI agent to invoke the tools.
+You can reuse the prompt in [prompts/clarify-before-coding.md](prompts/clarify-before-coding.md) for the AI agent to use in order to invoke the tools. Your prompt can look something like this:
+
+> *Throughout this session, make sure to follow all instructions in @clarify-before-coding.md to interact with me for continuous feedback and to get clarity by using the pair-pilot MCP*.
 
 
 ## Available Tools
 
-- **`request_free_form_input(question: str)`** - Ask for text input
-- **`request_yes_no_input(question: str)`** - Ask for yes/no confirmation
-- **`request_multiple_choice_input(question: str, options: list)`** - Present choices
+- **`request_free_form_input(question: str)`**
+  - Asks for text input.
+  - Returns: `str` (the user's textual response).
+- **`request_yes_no_input(question: str)`**
+  - Asks for yes/no confirmation and optional comments.
+  - Returns: `dict` (e.g., `{"answer": True, "comments": "Looks good."}`)
+- **`request_multiple_choice_input(question: str, options: list)`**
+  - Presents choices and allows optional comments.
+  - Returns: `dict` (e.g., `{"selection": ["Option A", "Option C"], "comments": "A and C are best."}`)
+  - If no options are provided by the agent, returns `{"selection": [], "comments": "ERROR_NO_OPTIONS"}`.
 
 ## Testing
 
