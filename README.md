@@ -145,11 +145,11 @@ Server Response: [TextContent(type='text', text='Python', annotations=None)]
 
 --- Testing: request_yes_no_input ---
 Client: Asking yes/no question: 'Do you enjoy using MCP?'
-Server Response: [TextContent(type='text', text='true', annotations=None)]
+Server Response: [TextContent(type='text', text='{"answer": true, "comments": "MCP is great!"}', annotations=None)]
 
 --- Testing: request_multiple_choice_input ---
 Client: Asking multiple-choice question: 'Which topic do you want to discuss?' with options: ['Technology', 'Science', 'Art']
-Server Response: [TextContent(type='text', text='Technology', annotations=None), TextContent(type='text', text='Science', annotations=None)]
+Server Response: [TextContent(type='text', text='{"selection": ["Technology", "Science"], "comments": "Let's start with these two."}', annotations=None)]
 
 --- Test client finished ---
 ```
@@ -184,9 +184,16 @@ You can add the instructions in [prompts/clarify-before-coding.md](prompts/clari
 
 ## Available Tools
 
-- **`request_free_form_input(question: str)`** - Ask for text input
-- **`request_yes_no_input(question: str)`** - Ask for yes/no confirmation
-- **`request_multiple_choice_input(question: str, options: list)`** - Present choices
+- **`request_free_form_input(question: str)`**
+  - Asks for text input.
+  - Returns: `str` (the user's textual response).
+- **`request_yes_no_input(question: str)`**
+  - Asks for yes/no confirmation and optional comments.
+  - Returns: `dict` (e.g., `{"answer": True, "comments": "Looks good."}`)
+- **`request_multiple_choice_input(question: str, options: list)`**
+  - Presents choices and allows optional comments.
+  - Returns: `dict` (e.g., `{"selection": ["Option A", "Option C"], "comments": "A and C are best."}`)
+  - If no options are provided by the agent, returns `{"selection": [], "comments": "ERROR_NO_OPTIONS"}`.
 
 ## Testing
 

@@ -53,17 +53,18 @@ async def request_free_form_input_tool(question: str) -> str:
 
 @mcp.tool(
     name="request_yes_no_input",
-    description="Asks the user a yes/no question and returns True for yes, False for no.",
+    description="Asks the user a yes/no question and returns their answer along with any optional comments. The response is a dictionary: {'answer': bool, 'comments': str}.",
 )
-async def request_yes_no_input_tool(question: str) -> bool:
+async def request_yes_no_input_tool(question: str) -> dict:
     """
-    Tool for requesting yes/no confirmation from the user.
+    Tool for requesting yes/no confirmation from the user, with optional comments.
 
     Args:
         question: The yes/no question to ask the user
 
     Returns:
-        True for yes, False for no
+        A dictionary containing the boolean answer and any textual comments.
+        Example: {"answer": True, "comments": "This looks good."}
     """
     console.print(
         Panel(
@@ -73,24 +74,29 @@ async def request_yes_no_input_tool(question: str) -> bool:
             expand=False,
         )
     )
-    # questionary.confirm already includes the (y/N) prompt
-    return await ask_yes_no(f"{question} (yes/no):")
+    answer = await ask_yes_no(f"{question} (yes/no):")
+    comments = await ask_free_form(
+        "Additional comments (optional, press Enter to skip): "
+    )
+    return {"answer": answer, "comments": comments or ""}
 
 
 @mcp.tool(
     name="request_multiple_choice_input",
-    description="Presents the user with a list of options and returns their selected choices as a list of strings.",
+    description="Presents the user with a list of options, returns their selected choices and any optional comments. The response is a dictionary: {'selection': List[str], 'comments': str}.",
 )
-async def request_multiple_choice_input_tool(question: str, options: List[str]) -> List[str]:
+async def request_multiple_choice_input_tool(question: str, options: List[str]) -> dict:
     """
-    Tool for requesting multiple choice selection from the user.
+    Tool for requesting multiple choice selection from the user, with optional comments.
 
     Args:
         question: The question to ask the user
         options: List of choices to present
 
     Returns:
-        The selected choices as a list of strings, or empty list if cancelled or no options.
+        A dictionary containing the selected choices (list of strings) and any textual comments.
+        Example: {"selection": ["Option A"], "comments": "Option A is preferred because..."}
+        Returns {"selection": [], "comments": "ERROR_NO_OPTIONS"} if no options are provided.
     """
     if not options:
         error_message = (
@@ -103,8 +109,7 @@ async def request_multiple_choice_input_tool(question: str, options: List[str]) 
                 border_style="red",
             )
         )
-        # Return a specific error string or raise an MCP-compatible error
-        return "ERROR_NO_OPTIONS"
+        return {"selection": [], "comments": "ERROR_NO_OPTIONS"}
 
     console.print(
         Panel(
@@ -114,7 +119,11 @@ async def request_multiple_choice_input_tool(question: str, options: List[str]) 
             expand=False,
         )
     )
-    return await ask_multiple_choice("Select an option:", options)
+    selection = await ask_multiple_choice("Select an option:", options)
+    comments = await ask_free_form(
+        "Additional comments (optional, press Enter to skip): "
+    )
+    return {"selection": selection, "comments": comments or ""}
 
 
 if __name__ == "__main__":
