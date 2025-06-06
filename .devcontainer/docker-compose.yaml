@@ -4,20 +4,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    platform: linux/amd64
     volumes:
       - ..:/workspace:cached
       - ~/.gitconfig:/home/vscode/.gitconfig:ro
     command: sleep infinity
-    extra_hosts: 
+    extra_hosts:
       - "host.docker.internal:host-gateway"
-      
+
   pair-pilot-mcp:
     container_name: pair-pilot
     build:
       context: ../
       dockerfile: Dockerfile
-    platform: linux/amd64
     ports:
       - "8100:8100"
     stdin_open: true
