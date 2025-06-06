@@ -136,7 +136,7 @@ Clone the repository:
 >> docker attach --detach-keys="ctrl-c" pair-pilot
 ```
 
-### Local Development
+### Local Development using Python
 
 ```bash
 # Install dependencies
@@ -148,6 +148,20 @@ Clone the repository:
 ```
 
 The server will start on `http://localhost:8100/sse`.
+
+**Note❗️:** After running the MCP server you must be connected to the MCP server’s terminal session to answer questions from the AI Agent:
+
+* **If you've run the server using `python` or `docker run`**:
+  You’ll automatically be connected to the terminal where prompts will appear.
+
+* **If you've run the server using `docker compose`**:
+  Run the following to attach to the terminal:
+
+  ```bash
+  >> docker attach --detach-keys="ctrl-c" pair-pilot
+  ```
+
+Staying attached ensures you see and respond to questions as the AI agent invokes tools.
 
 ### Using the Test Client
 
@@ -180,7 +194,7 @@ Server Response: [TextContent(type='text', text='{"selection": ["Technology", "S
 
 ## AI Agent Integration
 
-> Note: Before using the MCP, ensure that it is run locally following the above commands. It is intended to act as a standalone server for the Agent to connect to it. If it is not running already, the Agent will fail to connect to the MCP and it won't work.
+**Note❗️:** Before using the MCP, ensure that it is run locally following the above commands. It is intended to act as a standalone server for the Agent to connect to it. If it is not running already, the Agent will fail to connect to the MCP and it won't work.
 
 Add this configuration to your AI agent's MCP settings:
 
