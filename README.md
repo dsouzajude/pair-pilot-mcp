@@ -168,6 +168,9 @@ Staying attached ensures you see and respond to questions as the AI agent invoke
 We have a test client in [test_client.py](test_client.py) to help with local
 development. It will connect to the server and automatically call the three tools sequentially with predefined inputs. You'll see the client's requests and the server responses printed in the client's terminal. The PairPilot server terminal will show the interactive prompts. Use the following command to run the client:
 
+> **Note❗️:** Before using the test client, ensure the PairPilot MCP server has already started locally else the client will not be able to connect to it.
+
+
 ```bash
 # Run the client
 # The `MCP_SERVER_URL` environment variable is required and defaults to `http://localhost:8100/sse`
@@ -194,7 +197,7 @@ Server Response: [TextContent(type='text', text='{"selection": ["Technology", "S
 
 ## AI Agent Integration
 
-**Note❗️:** Before using the MCP, ensure that it is run locally following the above commands. It is intended to act as a standalone server for the Agent to connect to it. If it is not running already, the Agent will fail to connect to the MCP and it won't work.
+> **Note❗️:** Before configuring the AI agent (aka clients), ensure that the PairPilot MCP server has already started, else it will fail to connect to it and it won't work.
 
 Add this configuration to your AI agent's MCP settings:
 
