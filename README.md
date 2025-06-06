@@ -83,11 +83,11 @@ Clone the repository:
 | Variable Name | Default Value |
 | ------------- | ------------- |
 | HOST          | `0.0.0.0`     |
-| PORT          | `8100`        | 
+| PORT          | `8100`        |
 
 ### Using Docker (Recommended)
 
-> See [docker-compose.yaml](.devcontainer/docker-compose.yaml) for reference. 
+> See [docker-compose.yaml](.devcontainer/docker-compose.yaml) for reference.
 
 ```bash
 # Change directory to pair-pilot-mcp
@@ -170,6 +170,18 @@ Add this configuration to your AI agent's MCP settings:
       "description": "Pair Pilot - Your co-pilot for coding, questions, and continuous feedback"
     }
   }
+}
+```
+
+### Github Copilot (`.vscode/mcp.json`)
+
+```json
+{
+    "servers": {
+        "pair-pilot": {
+            "url": "http://localhost:8100/sse"
+        }
+    }
 }
 ```
 
