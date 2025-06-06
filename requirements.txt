@@ -1,4 +1,4 @@
-mcp>=1.9.2
+mcp>=1.9.3
 questionary>=2.1.0
 rich>=14.0.0
 pytest>=8.0.0
