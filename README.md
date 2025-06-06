@@ -15,16 +15,14 @@ AI agents often need human input for clarifications, confirmations, or choices d
 
 ## What It Does
 
+PairPilot acts as a bridge between a human developer and an AI agent, allowing real-time feedback through a dedicated CLI interface. This ensures clear, low-latency communication without cluttering the main chat.
+
 - **Standalone Service**: Runs independently from AI agents, accessible via [HTTP/SSE](https://modelcontextprotocol.io/docs/concepts/transports#server-sent-events-sse).
 - **Enhanced CLI**: Uses `rich` for beautiful terminal output and `questionary` for smooth interactions.
 - **Three Question Types**: Free-form text, yes/no confirmations, and multiple-choice selections.
 - **Docker Ready**: Containerized for easy deployment in any environment.
 
-## System Flow: Human ↔ MCP ↔ AI Agent
-
-PairPilot acts as a bridge between a human developer and an AI agent, allowing real-time feedback through a dedicated CLI interface. This ensures clear, low-latency communication without cluttering the main chat.
-
-### How It Works
+## How It Works
 
 1. The AI agent encounters ambiguity or needs confirmation.
 2. It sends a question to the MCP server using a registered tool.
@@ -45,11 +43,26 @@ flowchart TD
     Agent -->|Continues task| Agent
 ```
 
-### Demo
+## Available Tools
+
+- **`request_free_form_input(question: str)`**
+  - Asks for text input.
+  - Returns: `str` (the user's textual response).
+- **`request_yes_no_input(question: str)`**
+  - Asks for yes/no confirmation and optional comments.
+  - Returns: `dict` (e.g., `{"answer": True, "comments": "Looks good."}`)
+- **`request_multiple_choice_input(question: str, options: list)`**
+  - Presents choices and allows optional comments.
+  - Returns: `dict` (e.g., `{"selection": ["Option A", "Option C"], "comments": "A and C are best."}`)
+  - If no options are provided by the agent, returns `{"selection": [], "comments": "ERROR_NO_OPTIONS"}`.
+
+## Demo
 
 ![](docs/pair-pilot-demo.gif)
 
-## Project Structure
+## Implementation Details
+
+### Project Structure
 
 ```
 pair-pilot-mcp/
@@ -61,7 +74,7 @@ pair-pilot-mcp/
 └── README.md
 ```
 
-## Dependencies
+### Dependencies
 
 - **Python 3**
 - **mcp** - Model Context Protocol framework
@@ -83,11 +96,13 @@ Clone the repository:
 | Variable Name | Default Value |
 | ------------- | ------------- |
 | HOST          | `0.0.0.0`     |
-| PORT          | `8100`        | 
+| PORT          | `8100`        |
 
 ### Using Docker (Recommended)
 
-> See [docker-compose.yaml](.devcontainer/docker-compose.yaml) for reference. 
+> See [docker-compose.yaml](.devcontainer/docker-compose.yaml) for reference configuration.
+
+> Also available in [Docker Hub](https://hub.docker.com/r/dsouzajude/pair-pilot-mcp).
 
 ```bash
 # Change directory to pair-pilot-mcp
@@ -103,7 +118,14 @@ Clone the repository:
                   --name pair-pilot \
                   pair-pilot
 
-# Or alternatively in docker compose
+# Or alternatively, skip the build and run with the image hosted on Docker Hub
+>> docker run -it --rm -p 8100:8100 \
+                  -e HOST="0.0.0.0" \
+                  -e PORT="8100" \
+                  --name pair-pilot \
+                  dsouzajude/pair-pilot-mcp:latest
+
+# Or alternatively build and run using docker compose
 >> cd .devcontainer
 >> docker compose up --build --remove-orphans pair-pilot
 
@@ -173,6 +195,18 @@ Add this configuration to your AI agent's MCP settings:
 }
 ```
 
+### Github Copilot (`.vscode/mcp.json`)
+
+```json
+{
+    "servers": {
+        "pair-pilot": {
+            "url": "http://localhost:8100/sse"
+        }
+    }
+}
+```
+
 ### Other AI Agents
 
 Most MCP-compatible agents use similar configuration. Adjust the format as needed for your specific agent.
@@ -182,20 +216,6 @@ Most MCP-compatible agents use similar configuration. Adjust the format as neede
 You can reuse the prompt in [prompts/clarify-before-coding.md](prompts/clarify-before-coding.md) for the AI agent to use in order to invoke the tools. Your prompt can look something like this:
 
 > *Throughout this session, make sure to follow all instructions in @clarify-before-coding.md to interact with me for continuous feedback and to get clarity by using the pair-pilot MCP*.
-
-
-## Available Tools
-
-- **`request_free_form_input(question: str)`**
-  - Asks for text input.
-  - Returns: `str` (the user's textual response).
-- **`request_yes_no_input(question: str)`**
-  - Asks for yes/no confirmation and optional comments.
-  - Returns: `dict` (e.g., `{"answer": True, "comments": "Looks good."}`)
-- **`request_multiple_choice_input(question: str, options: list)`**
-  - Presents choices and allows optional comments.
-  - Returns: `dict` (e.g., `{"selection": ["Option A", "Option C"], "comments": "A and C are best."}`)
-  - If no options are provided by the agent, returns `{"selection": [], "comments": "ERROR_NO_OPTIONS"}`.
 
 ## Testing
 
